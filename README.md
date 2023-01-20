@@ -1,6 +1,6 @@
-# visual-nuts-json
+# visual-nuts-json               
 
-Rest API to Read and return some datas of JSON
+# Rest API to Read and return some datas of JSON
 
 JSON EXAMPLE:
 
@@ -31,7 +31,7 @@ languages: ["es"]
 
 
 
- TO RUN PROJECT
+# TO RUN PROJECT            
 
 Git clone https://github.com/rafaellarosa07/visual-nuts-json                       
 cd visual-nuts-json             
