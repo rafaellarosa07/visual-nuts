@@ -33,10 +33,10 @@ languages: ["es"]
 
 # TO RUN PROJECT
 
-Git clone https://github.com/rafaellarosa07/visual-nuts-json
-cd visual-nuts-json
-mvn clean install
-mvn spring-boot:run
+Git clone https://github.com/rafaellarosa07/visual-nuts-json                       
+cd visual-nuts-json             
+mvn clean install             
+mvn spring-boot:run                
 
 
 
