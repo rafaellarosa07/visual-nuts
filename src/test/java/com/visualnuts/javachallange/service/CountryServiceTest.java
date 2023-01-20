@@ -80,7 +80,7 @@ class CountryServiceTest {
     @Test
     void commonOfficialLangAll() {
         when(jsonService.convertJsonToCountryList()).thenReturn(Arrays.asList(countryDTO));
-        String value = countryService.commonOfficialLangAll();
+        List<String> value = countryService.commonOfficialLangAll();
         Mockito.verify(jsonService).convertJsonToCountryList();
         assertNotNull(value);
     }

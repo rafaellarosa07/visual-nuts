@@ -68,7 +68,7 @@ class CountryControllerTest {
 
     @Test
     void commonOfficialLangAll() throws Exception {
-        when(countryService.commonOfficialLangAll()).thenReturn("PT");
+        when(countryService.commonOfficialLangAll()).thenReturn(Arrays.asList("PT"));
         mockMvc.perform(get(PATH+"/most-common-official-lang")).andExpect(status().isOk());
     }
 

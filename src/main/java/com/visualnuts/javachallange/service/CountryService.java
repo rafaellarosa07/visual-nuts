@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 @Service
 public class CountryService {
@@ -42,46 +44,27 @@ public class CountryService {
                 .mapToInt(countryDTO -> countryDTO.getLanguages().size()).sum();
     }
 
-    public String commonOfficialLangAll() {
+    public List<String> commonOfficialLangAll() {
         List<String> languages = new ArrayList<>();
         getCountries().stream().forEach(countryDTO -> {
             languages.addAll(countryDTO.getLanguages());
         });
-//        languages.stream().reduce((a, b) -> Comparator.comparing(String::valueOf).compare(a, b) >= 0 ? a : b);
-//
-//        languages.stream()
-//                .collect(Collectors.groupingBy(LanguageDTO::isSomeLang, Collectors.counting()))
-//                //TODO Your problem is equals method - Function.isIdentity use memory reference.
-//                .entrySet().stream()
-//                .filter(l -> l.)
-//                .map(String::valueOf)
-//                .orElse(null);
-        mostCommon(languages);
-        return null;
-    }
 
-    private static <T> T mostCommon(List<T> list) {
-        Map<T, Integer> map = new HashMap<>();
+        Long valueParameter = languages.stream()
+                .collect(Collectors.groupingBy(
+                        Function.identity(),
+                        TreeMap::new,
+                        Collectors.counting()
+                ))
+                .lastEntry()
+                .getValue();
 
-        for (T t : list) {
-            Integer val = map.get(t);
-            map.put(t, val == null ? 1 : val + 1);
-        }
-
-        Map<T, Integer> max = new HashMap<>();
-
-        for (Map.Entry<T, Integer> e : map.entrySet()) {
-            if(max.isEmpty()){
-                max.put(e.getKey(), e.getValue());
-            }
-            max.values().stream().forEach(value -> {
-                if (max == null || e.getValue() >= value) {
-                    max.put(e.getKey(), e.getValue());
-                }
-            });
-        }
-
-        return (T) max.keySet();
+        List<String> languagesReturn = languages.stream()
+                .collect(Collectors.groupingBy(String::valueOf, Collectors.counting()))
+                .entrySet().stream()
+                .filter(l -> l.getValue() >= valueParameter)
+                .map(String::valueOf).toList();
+        return languagesReturn;
     }
 
 
